@@ -26,6 +26,9 @@ namespace idz2.Data
 
 			builder.Entity<DocumentsProcesses>()
 				.HasKey(e => new { e.DocumentId, e.ProcessId });
+
+			builder.Entity<StaffInProcesses>()
+				.HasKey(e => new { e.DocumentId, e.ProcessId, e.StaffId });
 		}
 
 		public DbSet<Authors> Authors { get; set; }
@@ -34,5 +37,8 @@ namespace idz2.Data
 		public DbSet<DocumentsProcesses> DocumentsProcesses { get; set; }
 		public DbSet<ProcessStatus> ProcessStatus { get; set; }
 		public DbSet<ProcessOutcomes> ProcessOutcomes { get; set; }
+		public DbSet<StaffInProcesses> StaffInProcesses { get; set; }
+		public DbSet<Staff> Staff { get; set; }
+		public DbSet<RefStaffRoles> RefStaffRoles { get; set; }
 	}
 }

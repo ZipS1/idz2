@@ -23,5 +23,7 @@ namespace idz2.Models
 		public virtual ProcessOutcomes? ProcessOutcomes { get; set; }
 
 		public virtual ProcessStatus? ProcessStatus { get; set; }
+
+		public virtual ICollection<StaffInProcesses>? StaffInProcesses { get; set; }
 	}
 }
