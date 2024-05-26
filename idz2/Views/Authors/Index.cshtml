@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<idz2.Models.Authors>
 
 @{
-    ViewData["Title"] = "Авторы";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Авторы</h1>
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Создать</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -31,9 +31,9 @@
                 @Html.DisplayFor(modelItem => item.OtherDetails)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.AuthorName">Редактировать</a> |
-                <a asp-action="Details" asp-route-id="@item.AuthorName">Детали</a> |
-                <a asp-action="Delete" asp-route-id="@item.AuthorName">Удалить</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

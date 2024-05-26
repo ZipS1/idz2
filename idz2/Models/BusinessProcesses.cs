@@ -1,19 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace idz2.Models
 {
 	public class BusinessProcesses
 	{
-		[Key]
-		public int ProcessId { get; set; }
+        [Key]
+		[HiddenInput(DisplayValue = false)]
+        public int ProcessId { get; set; }
 
-		public int? NextProcessId { get; set; }
+        [Display(Name = "Следующий процесс")]
+        public int? NextProcessId { get; set; }
 
-		public string? ProcessName { get; set; }
+        [Required(ErrorMessage = "Укажите имя процесса")]
+        [Display(Name = "Имя процесса")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 50 символов")]
+        public string? ProcessName { get; set; }
 
-		public string? ProcessDescription { get; set; }
+        [Display(Name = "Описание процесса")]
+        [StringLength(200, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 200 символов")]
+        public string? ProcessDescription { get; set; }
 
-		public string? OtherDetails { get; set; }
+        [Display(Name = "Другие детали")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 50 символов")]
+        public string? OtherDetails { get; set; }
 
 		public virtual BusinessProcesses? NextProcess { get; set; }
 

@@ -14,11 +14,6 @@ namespace idz2.Data
 		{
 			base.OnModelCreating(builder);
 
-			builder.Entity<Documents>()
-				.HasOne(e => e.Authors)
-				.WithMany(e => e.Documents)
-				.HasForeignKey(e => e.AuthorName);
-
 			builder.Entity<BusinessProcesses>()
 				.HasOne(e => e.NextProcess)
 				.WithMany(e => e.Processes)

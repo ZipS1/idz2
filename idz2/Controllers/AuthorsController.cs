@@ -28,7 +28,7 @@ namespace idz2.Controllers
         }
 
         // GET: Authors/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Authors == null)
             {
@@ -36,7 +36,7 @@ namespace idz2.Controllers
             }
 
             var authors = await _context.Authors
-                .FirstOrDefaultAsync(m => m.AuthorName == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (authors == null)
             {
                 return NotFound();
@@ -56,7 +56,7 @@ namespace idz2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AuthorName,OtherDetails")] Authors authors)
+        public async Task<IActionResult> Create([Bind("Id,AuthorName,OtherDetails")] Authors authors)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace idz2.Controllers
         }
 
         // GET: Authors/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Authors == null)
             {
@@ -88,9 +88,9 @@ namespace idz2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("AuthorName,OtherDetails")] Authors authors)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,AuthorName,OtherDetails")] Authors authors)
         {
-            if (id != authors.AuthorName)
+            if (id != authors.Id)
             {
                 return NotFound();
             }
@@ -104,7 +104,7 @@ namespace idz2.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AuthorsExists(authors.AuthorName))
+                    if (!AuthorsExists(authors.Id))
                     {
                         return NotFound();
                     }
@@ -119,7 +119,7 @@ namespace idz2.Controllers
         }
 
         // GET: Authors/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Authors == null)
             {
@@ -127,7 +127,7 @@ namespace idz2.Controllers
             }
 
             var authors = await _context.Authors
-                .FirstOrDefaultAsync(m => m.AuthorName == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (authors == null)
             {
                 return NotFound();
@@ -139,7 +139,7 @@ namespace idz2.Controllers
         // POST: Authors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Authors == null)
             {
@@ -155,9 +155,9 @@ namespace idz2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AuthorsExists(string id)
+        private bool AuthorsExists(int id)
         {
-          return (_context.Authors?.Any(e => e.AuthorName == id)).GetValueOrDefault();
+          return (_context.Authors?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

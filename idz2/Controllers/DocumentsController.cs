@@ -48,7 +48,7 @@ namespace idz2.Controllers
         // GET: Documents/Create
         public IActionResult Create()
         {
-            ViewData["AuthorName"] = new SelectList(_context.Authors, "AuthorName", "AuthorName");
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "AuthorName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace idz2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DocumentId,AuthorName,DocumentName,DocumentDescription,OtherDetails")] Documents documents)
+        public async Task<IActionResult> Create([Bind("DocumentId,AuthorId,DocumentName,DocumentDescription,OtherDetails")] Documents documents)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace idz2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorName"] = new SelectList(_context.Authors, "AuthorName", "AuthorName", documents.AuthorName);
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "AuthorName", documents.AuthorId);
             return View(documents);
         }
 
@@ -82,7 +82,7 @@ namespace idz2.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorName"] = new SelectList(_context.Authors, "AuthorName", "AuthorName", documents.AuthorName);
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "AuthorName", documents.AuthorId);
             return View(documents);
         }
 
@@ -91,7 +91,7 @@ namespace idz2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DocumentId,AuthorName,DocumentName,DocumentDescription,OtherDetails")] Documents documents)
+        public async Task<IActionResult> Edit(int id, [Bind("DocumentId,AuthorId,DocumentName,DocumentDescription,OtherDetails")] Documents documents)
         {
             if (id != documents.DocumentId)
             {
@@ -118,7 +118,7 @@ namespace idz2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorName"] = new SelectList(_context.Authors, "AuthorName", "AuthorName", documents.AuthorName);
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "AuthorName", documents.AuthorId);
             return View(documents);
         }
 

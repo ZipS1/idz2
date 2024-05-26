@@ -1,20 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace idz2.Models
 {
 	public class DocumentsProcesses
 	{
 		[ForeignKey("Documents")]
-		public int DocumentId { get; set; }
+        [Required(ErrorMessage = "Укажите идентификатор процесса документа")]
+        [Display(Name = "Идентификатор процесса документа")]
+        public int DocumentId { get; set; }
 
 		[ForeignKey("BusinessProcesses")]
-		public int ProcessId { get; set; }
+        [Required(ErrorMessage = "Укажите идентификатор бизнес-процесса")]
+        [Display(Name = "Идентификатор бизнес-процесса")]
+        public int ProcessId { get; set; }
 
 		[ForeignKey("ProcessOutcomes")]
-		public int ProcessOutcomeCode { get; set; }
+        [Required(ErrorMessage = "Укажите идентификатор результата процесса")]
+        [Display(Name = "Идентификатор результата процесса")]
+        public int ProcessOutcomeCode { get; set; }
 
 		[ForeignKey("ProcessStatus")]
-		public int ProcessStatusCode { get; set; }
+        [Required(ErrorMessage = "Укажите идентификатор статуса документа")]
+        [Display(Name = "Идентификатор статуса документа")]
+        public int ProcessStatusCode { get; set; }
 
 		public virtual Documents? Documents { get; set; }
 
