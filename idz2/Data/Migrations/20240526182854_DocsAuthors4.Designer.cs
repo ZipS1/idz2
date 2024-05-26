@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using idz2.Data;
 
@@ -11,9 +12,11 @@ using idz2.Data;
 namespace idz2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240526182854_DocsAuthors4")]
+    partial class DocsAuthors4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,42 +240,16 @@ namespace idz2.Data.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("idz2.Models.BusinessProcesses", b =>
-                {
-                    b.Property<int>("ProcessId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProcessId"));
-
-                    b.Property<int?>("NextProcessId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OtherDetails")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProcessDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProcessName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProcessId");
-
-                    b.HasIndex("NextProcessId");
-
-                    b.ToTable("BusinessProcesses");
-                });
-
             modelBuilder.Entity("idz2.Models.Documents", b =>
                 {
-                    b.Property<int>("DocumentId")
+                    b.Property<int>("DocumentsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocumentsId"));
 
                     b.Property<string>("AuthorName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DocumentDescription")
@@ -284,68 +261,11 @@ namespace idz2.Data.Migrations
                     b.Property<string>("OtherDetails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DocumentId");
+                    b.HasKey("DocumentsId");
 
                     b.HasIndex("AuthorName");
 
                     b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("idz2.Models.DocumentsProcesses", b =>
-                {
-                    b.Property<int>("DocumentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProcessId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProcessOutcomeCode")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProcessStatusCode")
-                        .HasColumnType("int");
-
-                    b.HasKey("DocumentId", "ProcessId");
-
-                    b.HasIndex("ProcessId");
-
-                    b.HasIndex("ProcessOutcomeCode");
-
-                    b.HasIndex("ProcessStatusCode");
-
-                    b.ToTable("DocumentsProcesses");
-                });
-
-            modelBuilder.Entity("idz2.Models.ProcessOutcomes", b =>
-                {
-                    b.Property<int>("ProcessOutcomeCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProcessOutcomeCode"));
-
-                    b.Property<string>("ProcessOutcomeDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProcessOutcomeCode");
-
-                    b.ToTable("ProcessOutcomes");
-                });
-
-            modelBuilder.Entity("idz2.Models.ProcessStatus", b =>
-                {
-                    b.Property<int>("ProcessStatusCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProcessStatusCode"));
-
-                    b.Property<string>("ProcessStatusDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProcessStatusCode");
-
-                    b.ToTable("ProcessStatus");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -399,84 +319,20 @@ namespace idz2.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("idz2.Models.BusinessProcesses", b =>
-                {
-                    b.HasOne("idz2.Models.BusinessProcesses", "NextProcess")
-                        .WithMany("Processes")
-                        .HasForeignKey("NextProcessId");
-
-                    b.Navigation("NextProcess");
-                });
-
             modelBuilder.Entity("idz2.Models.Documents", b =>
                 {
                     b.HasOne("idz2.Models.Authors", "Authors")
                         .WithMany("Documents")
-                        .HasForeignKey("AuthorName");
+                        .HasForeignKey("AuthorName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Authors");
-                });
-
-            modelBuilder.Entity("idz2.Models.DocumentsProcesses", b =>
-                {
-                    b.HasOne("idz2.Models.Documents", "Documents")
-                        .WithMany("DocumentsProcesses")
-                        .HasForeignKey("DocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("idz2.Models.BusinessProcesses", "BusinessProcesses")
-                        .WithMany("DocumentsProcesses")
-                        .HasForeignKey("ProcessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("idz2.Models.ProcessOutcomes", "ProcessOutcomes")
-                        .WithMany("DocumentsProcesses")
-                        .HasForeignKey("ProcessOutcomeCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("idz2.Models.ProcessStatus", "ProcessStatus")
-                        .WithMany("DocumentsProcesses")
-                        .HasForeignKey("ProcessStatusCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BusinessProcesses");
-
-                    b.Navigation("Documents");
-
-                    b.Navigation("ProcessOutcomes");
-
-                    b.Navigation("ProcessStatus");
                 });
 
             modelBuilder.Entity("idz2.Models.Authors", b =>
                 {
                     b.Navigation("Documents");
-                });
-
-            modelBuilder.Entity("idz2.Models.BusinessProcesses", b =>
-                {
-                    b.Navigation("DocumentsProcesses");
-
-                    b.Navigation("Processes");
-                });
-
-            modelBuilder.Entity("idz2.Models.Documents", b =>
-                {
-                    b.Navigation("DocumentsProcesses");
-                });
-
-            modelBuilder.Entity("idz2.Models.ProcessOutcomes", b =>
-                {
-                    b.Navigation("DocumentsProcesses");
-                });
-
-            modelBuilder.Entity("idz2.Models.ProcessStatus", b =>
-                {
-                    b.Navigation("DocumentsProcesses");
                 });
 #pragma warning restore 612, 618
         }
