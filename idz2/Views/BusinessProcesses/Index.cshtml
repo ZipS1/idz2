@@ -1,0 +1,53 @@
+﻿@model IEnumerable<idz2.Models.BusinessProcesses>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProcessName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProcessDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtherDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NextProcess)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProcessName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProcessDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NextProcess.ProcessId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProcessId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProcessId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProcessId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
