@@ -243,7 +243,7 @@ namespace idz2.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("idz2.Models.BusinessProcesses", b =>
@@ -274,7 +274,7 @@ namespace idz2.Data.Migrations
 
                     b.HasIndex("NextProcessId");
 
-                    b.ToTable("BusinessProcesses");
+                    b.ToTable("BusinessProcesses", (string)null);
                 });
 
             modelBuilder.Entity("idz2.Models.Documents", b =>
@@ -305,7 +305,7 @@ namespace idz2.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Documents");
+                    b.ToTable("Documents", (string)null);
                 });
 
             modelBuilder.Entity("idz2.Models.DocumentsProcesses", b =>
@@ -330,7 +330,7 @@ namespace idz2.Data.Migrations
 
                     b.HasIndex("ProcessStatusCode");
 
-                    b.ToTable("DocumentsProcesses");
+                    b.ToTable("DocumentsProcesses", (string)null);
                 });
 
             modelBuilder.Entity("idz2.Models.ProcessOutcomes", b =>
@@ -348,7 +348,7 @@ namespace idz2.Data.Migrations
 
                     b.HasKey("ProcessOutcomeCode");
 
-                    b.ToTable("ProcessOutcomes");
+                    b.ToTable("ProcessOutcomes", (string)null);
                 });
 
             modelBuilder.Entity("idz2.Models.ProcessStatus", b =>
@@ -366,7 +366,7 @@ namespace idz2.Data.Migrations
 
                     b.HasKey("ProcessStatusCode");
 
-                    b.ToTable("ProcessStatus");
+                    b.ToTable("ProcessStatus", (string)null);
                 });
 
             modelBuilder.Entity("idz2.Models.RefStaffRoles", b =>
@@ -384,7 +384,7 @@ namespace idz2.Data.Migrations
 
                     b.HasKey("StaffRoleCode");
 
-                    b.ToTable("RefStaffRoles");
+                    b.ToTable("RefStaffRoles", (string)null);
                 });
 
             modelBuilder.Entity("idz2.Models.Staff", b =>
@@ -402,7 +402,7 @@ namespace idz2.Data.Migrations
 
                     b.HasKey("StaffId");
 
-                    b.ToTable("Staff");
+                    b.ToTable("Staff", (string)null);
                 });
 
             modelBuilder.Entity("idz2.Models.StaffInProcesses", b =>
@@ -436,7 +436,7 @@ namespace idz2.Data.Migrations
 
                     b.HasIndex("StaffRoleCode");
 
-                    b.ToTable("StaffInProcesses");
+                    b.ToTable("StaffInProcesses", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
