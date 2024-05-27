@@ -28,6 +28,7 @@ namespace idz2.Controllers
             }
 
             ViewBag.AuthorName = _context.Authors.FirstOrDefault(a => a.Id == id).AuthorName;
+            ViewBag.AuthorId = id;
 
             var applicationDbContext = _context.Documents.Include(d => d.Authors).Where(d => d.AuthorId == id);
             return View(await applicationDbContext.ToListAsync());
@@ -53,9 +54,14 @@ namespace idz2.Controllers
         }
 
         // GET: Documents/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
-            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "AuthorName");
+            if (id == null || _context.Authors.Where(d => d.Id == id).Count() == 0)
+            {
+                return NotFound();
+            }
+
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "AuthorName", id);
             return View();
         }
 
@@ -70,7 +76,7 @@ namespace idz2.Controllers
             {
                 _context.Add(documents);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new {id = documents.AuthorId});
             }
             ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "AuthorName", documents.AuthorId);
             return View(documents);
@@ -123,7 +129,7 @@ namespace idz2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new {id = documents.AuthorId});
             }
             ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "AuthorName", documents.AuthorId);
             return View(documents);
@@ -164,7 +170,7 @@ namespace idz2.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new {id = documents.AuthorId});
         }
 
         private bool DocumentsExists(int id)
