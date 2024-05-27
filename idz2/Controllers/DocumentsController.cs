@@ -20,9 +20,16 @@ namespace idz2.Controllers
         }
 
         // GET: Documents
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var applicationDbContext = _context.Documents.Include(d => d.Authors);
+            if (id == null || _context.Authors.Where(d => d.Id == id).Count() == 0)
+            {
+                return NotFound();
+            }
+
+            ViewBag.AuthorName = _context.Authors.FirstOrDefault(a => a.Id == id).AuthorName;
+
+            var applicationDbContext = _context.Documents.Include(d => d.Authors).Where(d => d.AuthorId == id);
             return View(await applicationDbContext.ToListAsync());
         }
 
