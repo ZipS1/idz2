@@ -5,6 +5,8 @@ namespace idz2.Models
 {
 	public class DocumentsProcesses
 	{
+        public int Id { get; set; }
+
 		[ForeignKey("Documents")]
         [Required(ErrorMessage = "Укажите идентификатор процесса документа")]
         [Display(Name = "Идентификатор процесса документа")]

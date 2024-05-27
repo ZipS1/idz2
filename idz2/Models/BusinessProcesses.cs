@@ -6,11 +6,7 @@ namespace idz2.Models
 	public class BusinessProcesses
 	{
         [Key]
-		[HiddenInput(DisplayValue = false)]
         public int ProcessId { get; set; }
-
-        [Display(Name = "Следующий процесс")]
-        public int? NextProcessId { get; set; }
 
         [Required(ErrorMessage = "Укажите имя процесса")]
         [Display(Name = "Имя процесса")]
@@ -24,10 +20,6 @@ namespace idz2.Models
         [Display(Name = "Другие детали")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина строки должна быть от 3 до 50 символов")]
         public string? OtherDetails { get; set; }
-
-		public virtual BusinessProcesses? NextProcess { get; set; }
-
-		public virtual ICollection<BusinessProcesses>? Processes { get; set; }
 
 		public virtual ICollection<DocumentsProcesses>? DocumentsProcesses { get; set; }
 	}

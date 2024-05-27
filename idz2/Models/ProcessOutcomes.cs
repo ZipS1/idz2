@@ -6,7 +6,6 @@ namespace idz2.Models
 	public class ProcessOutcomes
 	{
 		[Key]
-		[HiddenInput(DisplayValue = false)]
 		public int ProcessOutcomeCode { get; set; }
 
         [Required(ErrorMessage = "Укажите описание результата процесса")]

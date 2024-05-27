@@ -5,7 +5,6 @@ namespace idz2.Models
 {
 	public class Staff
 	{
-        [HiddenInput(DisplayValue = false)]
         public int StaffId { get; set; }
 
         [Required(ErrorMessage = "Укажите детали сотрудника")]

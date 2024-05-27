@@ -6,7 +6,6 @@ namespace idz2.Models
 	public class ProcessStatus
 	{
 		[Key]
-		[HiddenInput(DisplayValue = false)]
 		public int ProcessStatusCode { get; set; }
 
         [Required(ErrorMessage = "Укажите описание статуса процесса")]

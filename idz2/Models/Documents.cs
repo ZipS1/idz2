@@ -7,7 +7,6 @@ namespace idz2.Models
 	public class Documents
 	{
 		[Key]
-		[HiddenInput(DisplayValue = false)]
 		public int DocumentId { get; set; }
 
         [ForeignKey("Authors")]

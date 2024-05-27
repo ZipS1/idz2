@@ -6,7 +6,6 @@ namespace idz2.Models
 	public class RefStaffRoles
 	{
 		[Key]
-        [HiddenInput(DisplayValue = false)]
         public int StaffRoleCode { get; set; }
 
         [Required(ErrorMessage = "Укажите описание роли сотрудника")]

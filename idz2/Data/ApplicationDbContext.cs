@@ -10,21 +10,6 @@ namespace idz2.Data
 			: base(options)
 		{
 		}
-		protected override void OnModelCreating(ModelBuilder builder)
-		{
-			base.OnModelCreating(builder);
-
-			builder.Entity<BusinessProcesses>()
-				.HasOne(e => e.NextProcess)
-				.WithMany(e => e.Processes)
-				.HasForeignKey(e => e.NextProcessId);
-
-			builder.Entity<DocumentsProcesses>()
-				.HasKey(e => new { e.DocumentId, e.ProcessId });
-
-			builder.Entity<StaffInProcesses>()
-				.HasKey(e => new { e.DocumentId, e.ProcessId, e.StaffId });
-		}
 
 		public DbSet<Authors> Authors { get; set; }
 		public DbSet<Documents> Documents { get; set; }
