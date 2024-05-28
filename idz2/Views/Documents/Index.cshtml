@@ -5,7 +5,9 @@
 }
 
 <h1>Документы автора @ViewBag.AuthorName</h1>
-
+<p>
+    <a asp-controller="Authors" asp-action="Index">Возврат к авторам</a>
+</p>
 <p>
     <a asp-action="Create" asp-route-id="@ViewBag.AuthorId">Создать</a>
 </p>
